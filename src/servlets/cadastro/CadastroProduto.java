@@ -45,8 +45,6 @@ public class CadastroProduto extends HttpServlet {
 
 		out.println("Vendedor: <input type='text' name='vendedorProduto' required> </br>");
 
-		out.println("Data: <input type='text' name='dataProduto' required> </br>");
-
 		// Botão de Submit
 		out.println("<input type='submit' value='Enviar'/>");
 

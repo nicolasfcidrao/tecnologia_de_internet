@@ -31,7 +31,7 @@ public class BuscarProduto extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		String nome = request.getParameter("nome");
+		String nome = request.getParameter("nomeProduto");
 		String opcao = request.getParameter("opcao");
 
 		if (opcao.equals("nome")) {
@@ -47,6 +47,15 @@ public class BuscarProduto extends HttpServlet {
 			out.println("<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script>");
 			out.println(
 					"<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>");
+
+			out.println("<script>\r\n" + "	function apagar() {\r\n"
+					+ "		if (confirm(\"Desejas apagar o produto?\")) {\r\n"
+					+ "			alert(\"O produto foi apagado.\");\r\n" + "		} else {\r\n"
+					+ "			return false;\r\n" + "		}\r\n" + "		\r\n"
+					+ "		function adicionadoAoCarrinho(){\r\n"
+					+ "			alert(\"Adicionado ao seu carrinho.\");\r\n" + "		}\r\n" + "	}\r\n"
+					+ "</script>");
+
 			out.println("</head>");
 			out.println("<body>");
 			out.println("<div class=\"container\">\r\n" + "  <h2>Tabela de busca</h2>\r\n"
@@ -59,21 +68,24 @@ public class BuscarProduto extends HttpServlet {
 				out.println("<div class=\"container\">\r\n" + "  <h2>Tabela de busca</h2>\r\n"
 						+ "  <table class=\"table table-condensed\">\r\n" + "    <thead>\r\n" + "      <tr>\r\n"
 						+ "        <th>" + p.getNome() + "</th>\r\n" + "        <th>" + p.getCodigo()
-						+ "</th>\r\n<th><form method='get' action='AlterarProduto'><input type='hidden' value='"
+						+ "</th>\r\n<th><input type='image' height='36' width='36' src='Imagens/" + p.getImagem()
+						+ "'><form method='get' action='AlterarProduto'><input type='hidden' value='" + p.getCodigo()
+						+ " name='codigo'> <input type='image' height='15' width='15' src='Imagens/botao-editar.jpg'</form> <form method='get' action='ExcluirProduto'> <script> type='text/javascript'> var atual= window.location.href; document.write('input type='hidden' value='atual' name='atual'> </script><input type='hidden' value='"
 						+ p.getCodigo()
-						+ " name='codigo'> <input type='image' height='15' width='15' src='Imagens/botao-editar.jpg'</form>Imagem</th>\r\n"
-						+ "        <th>"+p.getValor()+"</th>\r\n" + "        <th>"+p.getVendedor()+"</th>\r\n" + "        <th>"+p.getTipo()+"</th>"
-						+ "      </tr>\r\n" + "    </thead>");
+						+ "' name='codigo'> <input type='image' height='15' width='15' src='Imagens/botado-excluir.jpg' </form></th>\r\n"
+						+ "        <th>" + p.getValor() + "</th>\r\n" + "        <th>" + p.getVendedor() + "</th>\r\n"
+						+ "        <th>" + p.getTipo() + "</th>" + "      </tr>\r\n" + "    </thead>");
 			}
 
 		}
+
+		out.println("</table>");
 
 		out.println("</body></html>");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

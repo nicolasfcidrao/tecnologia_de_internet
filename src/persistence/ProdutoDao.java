@@ -139,7 +139,7 @@ public class ProdutoDao {
 
 		try {
 			con = Conexao.getConnection();
-			stmt = con.prepareStatement("select from produto where nome like=?");
+			stmt = con.prepareStatement("select * from produto where nome like ?");
 
 			stmt.setString(1, "%" + nome + "%");
 
@@ -147,14 +147,14 @@ public class ProdutoDao {
 			while (rs.next()) {
 
 				int codigo = rs.getInt("codigo");
-				nome = rs.getString("nome");
+				String nomeP = rs.getString("nome");
 				String tipo = rs.getString("tipo");
 				double valor = rs.getDouble("valor");
 				String imagem = rs.getString("imagem");
 				String vendedor = rs.getString("vendedor");
 				Date dataCadastro = rs.getDate("data_cadastro");
 
-				Produto p = new Produto(codigo, nome, tipo, valor, imagem, vendedor, dataCadastro);
+				Produto p = new Produto(codigo, nomeP, tipo, valor, imagem, vendedor, dataCadastro);
 				produtos.add(p);
 
 			}

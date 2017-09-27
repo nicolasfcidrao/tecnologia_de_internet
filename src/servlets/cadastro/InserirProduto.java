@@ -3,6 +3,7 @@ package servlets.cadastro;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,7 +26,7 @@ public class InserirProduto extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		//String codigo = request.getParameter("codigo");
+		// String codigo = request.getParameter("codigo");
 		String nome = request.getParameter("nomeProduto");
 		String tipo = request.getParameter("tipoProduto");
 		String imagem = request.getParameter("imagemProduto");
@@ -35,20 +36,17 @@ public class InserirProduto extends HttpServlet {
 
 		try {
 
-			Produto p = new Produto(nome, tipo, Double.parseDouble(valor), imagem, vendedor,
-					DataUtil.stringToDate(data));
+			Produto p = new Produto(nome, tipo, Double.parseDouble(valor), imagem, vendedor, new Date());
 			ProdutoDao pDao = new ProdutoDao();
 			pDao.inserir(p);
 
 			RequestDispatcher rD = request.getRequestDispatcher("index.html");
 			rD.forward(request, response);
 
-		} catch (NumberFormatException | ParseException e) {
+		} catch (NumberFormatException e) {
 
 			if (data != null || data != "") {
 				System.out.print(data);
-			} else {
-				System.out.print("Data vazia");
 			}
 			e.printStackTrace();
 		}
