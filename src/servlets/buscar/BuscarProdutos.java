@@ -1,6 +1,7 @@
 package servlets.buscar;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -25,16 +26,36 @@ public class BuscarProdutos extends HttpServlet {
 		String nomeProduto = request.getParameter("nomeProduto");
 		ProdutoDao pDao = new ProdutoDao();
 
+		PrintWriter out = response.getWriter();
+
+		out.println("<html><body>");
+
+		out.println("<form action='BuscarProdutos'>");
+
+		// Input para o nome do produto
+		out.println("Nome: <input type='text' name='nomeProduto'> </br>");
+
+		// Input para o código do produto
+		out.println("Código: <input type='text' name='codigoProduto'> </br>");
+
+		// Botão de Submit
+		out.println("<input type='submit' value='Enviar'/>");
+
 		// Buscar produtos no BD
-		List<Produto> produtos = pDao.listar();
-		
-		//Armazenar a lista de produtos
-		request.setAttribute("produtos", produtos);
+		//List<Produto> produtos = pDao.listar();
+
+		if (nomeProduto != null) {
+			
+		out.println("<table>");
+		out.println("<tr>");
+		out.println("</table>");
+		}
+
+		out.println("</body></html>");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

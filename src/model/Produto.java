@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Produto {
 	private int codigo;
@@ -10,6 +10,18 @@ public class Produto {
 	private String imagem;
 	private String vendedor;
 	private Date dataCadastro;
+
+	
+	
+	public Produto(String nome, String tipo, double valor, String imagem, String vendedor, Date dataCadastro) {
+		super();
+		this.nome = nome;
+		this.tipo = tipo;
+		this.valor = valor;
+		this.imagem = imagem;
+		this.vendedor = vendedor;
+		this.dataCadastro = dataCadastro;
+	}
 
 	public Produto(int codigo, String nome, String tipo, double valor, String imagem, String vendedor,
 			Date dataCadastro) {
@@ -23,8 +35,8 @@ public class Produto {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public Produto(String nome2, String tipo2, double parseDouble, String imagem2, String vendedor2, String format) {
-	}
+	//public Produto(String nome, String tipo, double parseDouble, String imagem, String vendedor, String format) {
+	//}
 
 	public int getCodigo() {
 		return codigo;

@@ -113,7 +113,7 @@ public class ProdutoDao {
 				String vendedor = rs.getString("vendedor");
 				Date dataCadastro = rs.getDate("data_cadastro");
 
-				Produto p = new Produto(codigo, nome, tipo, valor, imagem, vendedor, null);
+				Produto p = new Produto(codigo, nome, tipo, valor, imagem, vendedor, dataCadastro);
 				produtos.add(p);
 			}
 
@@ -129,5 +129,41 @@ public class ProdutoDao {
 		}
 		return produtos;
 
+	}
+
+	public List<Produto> buscar(String nome, int codigo) {
+
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ArrayList<Produto> produtos = new ArrayList<>();
+
+		try {
+			con = Conexao.getConnection();
+			stmt = con.prepareStatement("select from produto where nome like=? or codigo=?");
+
+			stmt.setString(1, "%"+nome+"%");
+			stmt.setInt(2, codigo);
+
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+
+				codigo = rs.getInt("codigo");
+				nome = rs.getString("nome");
+				String tipo = rs.getString("tipo");
+				double valor = rs.getDouble("valor");
+				String imagem = rs.getString("imagem");
+				String vendedor = rs.getString("vendedor");
+				Date dataCadastro = rs.getDate("data_cadastro");
+
+				Produto p = new Produto(codigo, nome, tipo, valor, imagem, vendedor, dataCadastro);
+				produtos.add(p);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return produtos;	
 	}
 }

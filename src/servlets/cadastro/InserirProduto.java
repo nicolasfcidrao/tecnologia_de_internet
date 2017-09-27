@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Produto;
 import persistence.ProdutoDao;
+import util.DataUtil;
 
 /**
  * Servlet implementation class InserirProduto
@@ -24,6 +25,7 @@ public class InserirProduto extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		//String codigo = request.getParameter("codigo");
 		String nome = request.getParameter("nomeProduto");
 		String tipo = request.getParameter("tipoProduto");
 		String imagem = request.getParameter("imagemProduto");
@@ -31,17 +33,23 @@ public class InserirProduto extends HttpServlet {
 		String vendedor = request.getParameter("vendedorProduto");
 		String data = request.getParameter("dataProduto");
 
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
 		try {
-			Produto p = new Produto(nome, tipo, Double.parseDouble(valor), imagem, vendedor, sdf.format(data));
+
+			Produto p = new Produto(nome, tipo, Double.parseDouble(valor), imagem, vendedor,
+					DataUtil.stringToDate(data));
 			ProdutoDao pDao = new ProdutoDao();
 			pDao.inserir(p);
 
 			RequestDispatcher rD = request.getRequestDispatcher("index.html");
 			rD.forward(request, response);
 
-		} catch (NumberFormatException e) {
+		} catch (NumberFormatException | ParseException e) {
+
+			if (data != null || data != "") {
+				System.out.print(data);
+			} else {
+				System.out.print("Data vazia");
+			}
 			e.printStackTrace();
 		}
 
