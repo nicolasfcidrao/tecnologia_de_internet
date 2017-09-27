@@ -14,15 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import model.Produto;
 import persistence.ProdutoDao;
 
-/**
- * Servlet implementation class ExibirProdutos
- */
+
 @WebServlet("/BuscarProdutos")
 public class BuscarProdutos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
 
 		String nomeProduto = request.getParameter("nomeProduto");
 		ProdutoDao pDao = new ProdutoDao();
@@ -71,7 +68,7 @@ public class BuscarProdutos extends HttpServlet {
 				out.println("<td></td>");
 				out.println("<td>" + p.getValor() + "</td>");
 				out.println("<td></td>");
-				out.println("<td>" + p.getImagem() + "</td>");
+				out.println("<td> <a href=''>" + p.getImagem() + "</a></td>");
 				out.println("<td></td>");
 				out.println("<td>" + p.getVendedor() + "</td>");
 				out.println("<td></td>");

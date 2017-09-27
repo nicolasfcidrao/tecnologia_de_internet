@@ -131,7 +131,7 @@ public class ProdutoDao {
 
 	}
 
-	public List<Produto> buscar(String nome, int codigo) {
+	public List<Produto> buscar(String nome) {
 
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -139,15 +139,14 @@ public class ProdutoDao {
 
 		try {
 			con = Conexao.getConnection();
-			stmt = con.prepareStatement("select from produto where nome like=? or codigo=?");
+			stmt = con.prepareStatement("select from produto where nome like=?");
 
-			stmt.setString(1, "%"+nome+"%");
-			stmt.setInt(2, codigo);
+			stmt.setString(1, "%" + nome + "%");
 
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 
-				codigo = rs.getInt("codigo");
+				int codigo = rs.getInt("codigo");
 				nome = rs.getString("nome");
 				String tipo = rs.getString("tipo");
 				double valor = rs.getDouble("valor");
@@ -164,6 +163,6 @@ public class ProdutoDao {
 			e.printStackTrace();
 		}
 
-		return produtos;	
+		return produtos;
 	}
 }
