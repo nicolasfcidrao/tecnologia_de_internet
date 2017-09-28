@@ -75,9 +75,9 @@ public class BuscarProduto extends HttpServlet {
 						+ "        <th>" + p.getVendedor() + "</th>\r\n" + "        <th>" + p.getTipo() + "</th>"
 						+ "<th> <form method='get' action='AlterarProduto'><input type='hidden' value='\" "
 						+ p.getCodigo() + "\r\n"
-						+ "                        + \" name='codigo'> <input type='image' height='22' width='22' src='Imagens/botao-editar.jpg'></form> <form method='get' action='ExcluirProduto'> <script type='text/javascript'> var atual= window.location.href; document.write('input type='hidden' value='atual' name='atual'>); </script><input type='hidden' value='\"\r\n"
-						+ p.getCodigo() + "\r\n"
-						+ "                        + \"' name='codigo'> <input onclick= 'return apagar();'type='image' height='22' width='22' src='Imagens/botado-excluir.jpg'> </form> </th>      </tr>\r\n"
+						+ "                        + \" name='codigo'> <input type='image' height='22' width='22' src='../Trabalho_Rafael/Imagens/botao-editar.jpg'></form> <form method='get' action='ExcluirProduto'> <script type='text/javascript'> var atual= window.location.href; document.write('input type='hidden' value='atual' name='atual'>); "
+						+ "</script><input type='hidden' value='" + p.getCodigo() + ""
+						+ "                        + \"' name='codigo'> <input onclick= 'return apagar();'type='image' height='22' width='22' src='../Trabalho_Rafael/Imagens/botado-excluir.jpg'> </form> </th>      </tr>\r\n"
 						+ "    </thead>");
 			}
 
