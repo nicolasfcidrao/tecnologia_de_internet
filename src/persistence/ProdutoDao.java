@@ -165,4 +165,36 @@ public class ProdutoDao {
 
 		return produtos;
 	}
+
+	public Produto buscarPorCodigo(int codigo) {
+		Connection con = null;
+		PreparedStatement stmt = null;
+
+		try {
+			con = Conexao.getConnection();
+			stmt = con.prepareStatement("select * from produto where codigo = ?");
+
+			stmt.setInt(1, codigo);
+
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				codigo = rs.getInt("codigo");
+				String nomeP = rs.getString("nome");
+				String tipo = rs.getString("tipo");
+				double valor = rs.getDouble("valor");
+				String imagem = rs.getString("imagem");
+				String vendedor = rs.getString("vendedor");
+				Date dataCadastro = rs.getDate("data_cadastro");
+
+				Produto p = new Produto(codigo, nomeP, tipo, valor, imagem, vendedor, dataCadastro);
+
+				return p;
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+
+	}
 }

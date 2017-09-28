@@ -1,4 +1,4 @@
-package servlets.excluir;
+package servlets.carrinho;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,17 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import persistence.ProdutoDao;
+import model.Carrinho;
 
 /**
- * Servlet implementation class ExcluirProduto
+ * Servlet implementation class ExcluirProdutoDoCarrinho
  */
-@WebServlet("/ExcluirProduto")
-public class ExcluirProduto extends HttpServlet {
+@WebServlet("/ExcluirProdutoDoCarrinho")
+public class ExcluirProdutoDoCarrinho extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public ExcluirProduto() {
+	public ExcluirProdutoDoCarrinho() {
 		super();
 	}
 
@@ -25,16 +26,17 @@ public class ExcluirProduto extends HttpServlet {
 		String codigo = request.getParameter("codigo");
 		String atual = request.getParameter("atual");
 
-		ProdutoDao pDao = new ProdutoDao();
+		HttpSession sessao = request.getSession();
 
-		pDao.remover(Integer.parseInt(codigo));
+		Carrinho car = (Carrinho) sessao.getAttribute("carrinho");
+
+		car.remover(Integer.parseInt(codigo));
 
 		response.sendRedirect(atual);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
