@@ -33,7 +33,6 @@ public class ListarCarrinho extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//ProdutoDao pDao = new ProdutoDao();
 
 		HttpSession sessao = request.getSession();
 
@@ -45,13 +44,16 @@ public class ListarCarrinho extends HttpServlet {
 		
 		List<Cliente> clientes = cDao.listar();
 
+		
+		
 		String nome = request.getParameter("nomeProduto");
 		String opcao = request.getParameter("opcao");
 
 		if (car != null && !car.listar().isEmpty()) {
 
-			List<Produto> produtos = car.listar();// pDao.buscar(nome);
+			List<Produto> produtos = car.listar();
 			System.out.println(produtos.size());
+			
 
 			out.println("<html>");
 			out.println("<head>");
@@ -74,6 +76,7 @@ public class ListarCarrinho extends HttpServlet {
 			out.println("<style> text-align: left; </style>");
 			out.println("</head>");
 			out.println("<body>");
+			out.println("<input type='hidden' name='qtde' value='"+produtos.size()+"'");
 			out.println("<div class=\"container\">\r\n" + " \r\n" + "  <table class=\"table table-condensed\">\r\n"
 					+ "    <thead>\r\n" + "      <tr>\r\n" + "        <th>Nome</th>\r\n"
 					+ "        <th>Código</th>\r\n<th>Imagem</th>\r\n" + "        <th>Valor</th>\r\n"
