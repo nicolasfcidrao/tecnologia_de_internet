@@ -2,6 +2,7 @@ package servlets.carrinho;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,7 +14,9 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import model.Carrinho;
+import model.Cliente;
 import model.Produto;
+import persistence.ClienteDao;
 import persistence.ProdutoDao;
 
 /**
@@ -30,7 +33,7 @@ public class ListarCarrinho extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ProdutoDao pDao = new ProdutoDao();
+		//ProdutoDao pDao = new ProdutoDao();
 
 		HttpSession sessao = request.getSession();
 
@@ -38,12 +41,16 @@ public class ListarCarrinho extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
+		ClienteDao cDao = new ClienteDao();
+		
+		List<Cliente> clientes = cDao.listar();
+
 		String nome = request.getParameter("nomeProduto");
 		String opcao = request.getParameter("opcao");
 
 		if (car != null && !car.listar().isEmpty()) {
 
-			List<Produto> produtos = car.listar();//pDao.buscar(nome);
+			List<Produto> produtos = car.listar();// pDao.buscar(nome);
 			System.out.println(produtos.size());
 
 			out.println("<html>");
@@ -80,22 +87,28 @@ public class ListarCarrinho extends HttpServlet {
 						+ "</th>\r\n<th><input type='image' height='50' width='50' src='Imagens/>" + p.getImagem()
 						+ "'>" + "<input type='hidden' value='" + p.getCodigo() + "' name ='codigo'></form> </th>\r\n"
 						+ "        <th>" + p.getValor() + "</th>\r\n" + "        <th>" + p.getVendedor() + "</th>\r\n"
-						+ "        <th>" + p.getTipo() + "</th>" + p.getCodigo() + "\r\n"
-						+ "                        + \"' name='codigo'> <a href='ExcluirProdutoDoCarrinho?codigo="+p.getCodigo()+"'> <img height='22' width='22' src='Imagens/botao-excluir.jpg'></a> </form> </th>      </tr>\r\n"
+						+ "        <th>" + p.getTipo() + "</th>" + " <th> <a href='ExcluirProdutoDoCarrinho?codigo="
+						+ p.getCodigo()
+						+ "'> <img height='22' width='22' src='Imagens/botao-excluir.jpg'></a> </form> </th>      </tr>\r\n"
 						+ "    </thead>");
 			}
 
-			
 			out.println("</table>");
 
-			out.println("<form method='get' action=>");
-			
-			out.println("CPF: <input type='text' name='cpf' required> </br>");
-			
+			out.println("<form action='FinalizarCompra'>");
+
+			out.println("Nome: <select name='cpf'>");
+			for (Cliente c : clientes) {
+				out.println("<option value='" + c.getCpf() + "'>" + c.getNome() + "</option>");
+
+			}
+
+			out.println("</select> </br>");
+
 			out.println("<input type='submit' name='enviar' value='Enviar'/>");
-			
+
 			out.println("</form>");
-			
+
 			out.println("</body></html>");
 		}
 	}
