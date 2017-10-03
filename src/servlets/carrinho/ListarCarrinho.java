@@ -108,7 +108,7 @@ public class ListarCarrinho extends HttpServlet {
 
 			out.println("</select> </br>");
 
-			out.println("<input type='submit' name='enviar' value='Enviar'/>");
+			out.println("<input type='submit' name='comprar' value='Comprar'/>");
 
 			out.println("</form>");
 
