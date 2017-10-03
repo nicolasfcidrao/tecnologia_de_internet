@@ -31,23 +31,21 @@ public class AdicionarAoCarrinho extends HttpServlet {
 		ProdutoDao pDao = new ProdutoDao();
 		String atual = request.getParameter("atUrl");
 		String codigo = request.getParameter("codigo");
-
+		System.out.println(codigo);
 		Produto p = pDao.buscarPorCodigo(Integer.parseInt(codigo));
 
 		HttpSession sessao = request.getSession();
-		if (sessao.isNew()) {
+		Carrinho c = (Carrinho) sessao.getAttribute("carrinho");
+		if (c== null) {
 			Carrinho car = new Carrinho();
 			car.inserir(p);
 
 			sessao.setAttribute("carrinho", car);
 
 		} else {
-			Carrinho c = (Carrinho) sessao.getAttribute("carrinho");
-			if (c != null) {
+			
 				c.inserir(p);
 
-				sessao.setAttribute("carrinho", c);
-			}
 		}
 
 		response.sendRedirect(atual);

@@ -32,7 +32,7 @@ public class ExcluirProdutoDoCarrinho extends HttpServlet {
 
 		car.remover(Integer.parseInt(codigo));
 
-		response.sendRedirect(atual);
+		response.sendRedirect("index.html");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -29,12 +29,11 @@ public class ExcluirProduto extends HttpServlet {
 
 		pDao.remover(Integer.parseInt(codigo));
 
-		response.sendRedirect(atual);
+		response.sendRedirect("index.html");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
